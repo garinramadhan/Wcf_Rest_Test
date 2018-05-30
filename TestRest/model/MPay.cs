@@ -16,6 +16,7 @@ namespace TestRest
         String doctorName = string.Empty;
         String dateTreatment = string.Empty;
         String paymentDrug = string.Empty;
+        String paymentDoctor = string.Empty;
         String totalPayment = string.Empty;
         String isPay = string.Empty;
 
@@ -66,6 +67,13 @@ namespace TestRest
         {
             get { return paymentDrug; }
             set { paymentDrug = value; }
+        }
+
+        [DataMember]
+        public string PaymentDoctor
+        {
+            get { return paymentDoctor; }
+            set { paymentDoctor = value; }
         }
 
         [DataMember]

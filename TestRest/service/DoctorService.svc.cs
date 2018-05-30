@@ -15,6 +15,7 @@ namespace TestRest
     {
         //SqlConnection con = new SqlConnection("Data Source=DESKTOP-MEO5I55\\DHADOTID; Initial Catalog=YR; User Id=sa; Password=qwerty");
         Connection con = new Connection();
+        SqlConnection sqlCon;
 
         public void AddDoctor(string idspecialist, string doctorname, string gender, string dob, string phone)
         {
@@ -35,8 +36,8 @@ namespace TestRest
         {
             List<MDoctor> doctorList = new List<MDoctor>();
             {
-                con.openConnection();
-                SqlCommand cmd = new SqlCommand("select a.Id_Doctor, b.Specialist, a.DoctorName, a.DoctorGender, a.DateOfBirth, a.Phone, b.Fare from Doctor.Doctor a join Doctor.Specialist b on a.Id_Specialist = b.Id_Specialist", con);
+                sqlCon = con.openConnection();
+                SqlCommand cmd = new SqlCommand("select a.Id_Doctor, b.Specialist, a.DoctorName, a.DoctorGender, a.DateOfBirth, a.Phone, b.Fare from Doctor.Doctor a join Doctor.Specialist b on a.Id_Specialist = b.Id_Specialist", sqlCon);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -55,7 +56,7 @@ namespace TestRest
                         doctorList.Add(doctorData);
                     }
                 }
-                
+                sqlCon.Close();
             }
             return doctorList;
 

@@ -14,6 +14,7 @@ namespace TestRest
     public class PatientService : IPatientService
     {
         Connection con = new Connection();
+        SqlConnection sqlCon;
 
         public void AddPatient(string patientname, string dob, string address, string gender)
         {
@@ -32,10 +33,11 @@ namespace TestRest
 
         public List<MPatient> GetPatientList()
         {
+            sqlCon = con.openConnection();
             List<MPatient> patientList = new List<MPatient>();
             {
                 con.openConnection();
-                SqlCommand cmd = new SqlCommand("select * from Patient.Patient", con);
+                SqlCommand cmd = new SqlCommand("select * from Patient.Patient", sqlCon);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -52,7 +54,7 @@ namespace TestRest
                         patientList.Add(patientData);
                     }
                 }
-                
+                sqlCon.Close();
             }
             return patientList;
         }

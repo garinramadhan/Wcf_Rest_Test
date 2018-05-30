@@ -10,7 +10,7 @@ namespace TestRest
     {
         public SqlConnection openConnection()
         {
-            SqlConnection con = new SqlConnection("Data Source=DESKTOP-MEO5I55\\DHADOTID; Initial Catalog=YR; User Id=sa; Password=qwerty");
+            SqlConnection con = new SqlConnection("Data Source=DESKTOP-1FMQCPV; Initial Catalog=YR; User Id=sa; Password=qwerty");
             return con;
         }
     }
