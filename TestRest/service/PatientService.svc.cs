@@ -15,6 +15,8 @@ namespace TestRest
     {
         Connection con = new Connection();
         SqlConnection sqlCon;
+        SqlCommand sqlCom;
+        SqlDataAdapter sqlDa;
 
         public void AddPatient(string patientname, string dob, string address, string gender)
         {
@@ -37,10 +39,10 @@ namespace TestRest
             List<MPatient> patientList = new List<MPatient>();
             {
                 con.openConnection();
-                SqlCommand cmd = new SqlCommand("select * from Patient.Patient", sqlCon);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                sqlCom = new SqlCommand("select * from Patient.Patient", sqlCon);
+                sqlDa = new SqlDataAdapter(sqlCom);
                 DataTable dt = new DataTable();
-                da.Fill(dt);
+                sqlDa.Fill(dt);
                 if (dt.Rows.Count > 0)
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
@@ -67,6 +69,22 @@ namespace TestRest
         public void UpdatePatient(string id, string name)
         {
             throw new NotImplementedException();
+        }
+
+        public DataTable doLogin(string username, string password)
+        {
+            DataTable dt = new DataTable();
+            MPatient patientData = new MPatient();
+            sqlCon = con.openConnection();
+            sqlCom = new SqlCommand("select * from Patient.Patient where ID_Patient = @username and DateOfBirth = @password", sqlCon);
+            sqlCom.Parameters.AddWithValue("@username", username);
+            sqlCom.Parameters.AddWithValue("@password", password);
+            sqlDa = new SqlDataAdapter(sqlCom);
+            sqlDa.Fill(dt);
+            sqlCon.Open();
+            int i = sqlCom.ExecuteNonQuery();
+            sqlCon.Close();
+            return dt;
         }
     }
 }

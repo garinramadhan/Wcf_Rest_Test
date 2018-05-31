@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -35,5 +36,13 @@ namespace TestRest
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         List<string> GetPatientNames();
+
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            UriTemplate = "Login/{username}/{password}",
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        DataTable doLogin(string username, string password);
     }
 }
