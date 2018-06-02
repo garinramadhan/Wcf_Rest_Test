@@ -52,7 +52,7 @@ namespace TestRest
                         doctorData.Gender = dt.Rows[i]["DoctorGender"].ToString();
                         doctorData.DOB = dt.Rows[i]["DateOfBirth"].ToString();
                         doctorData.Phone = dt.Rows[i]["Phone"].ToString();
-                        doctorData.IdSpecialist = dt.Rows[i]["Fare"].ToString();
+                        doctorData.Fare = dt.Rows[i]["Fare"].ToString();
                         doctorList.Add(doctorData);
                     }
                 }
