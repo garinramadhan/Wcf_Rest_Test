@@ -15,16 +15,18 @@ namespace TestRest
     public class RecipeService : IRecipeService
     {
         Connection con = new Connection();
+        SqlCommand sqlCom;
         SqlConnection sqlCon;
+        SqlDataAdapter sqlDa;
         public List<MRecipe> GetRecipe(string idRecipe)
         {
             List<MRecipe> recipeList = new List<MRecipe>();
             {
                 sqlCon = con.openConnection();
-                SqlCommand cmd = new SqlCommand("select a.Id_Recipe, c.DrugName, b.Qty, b.Subtotal from Recipe.Recipe a join Recipe.RecipeDetail b on a.Id_Recipe = b.Id_Recipe join Recipe.Drug c on b.Id_Drug = c.Id_Drug where a.Id_Recipe = '" + idRecipe + "'", sqlCon);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                sqlCom = new SqlCommand("select a.Id_Recipe, c.DrugName, b.Qty, b.Subtotal from Recipe.Recipe a join Recipe.RecipeDetail b on a.Id_Recipe = b.Id_Recipe join Recipe.Drug c on b.Id_Drug = c.Id_Drug where a.Id_Recipe = '" + idRecipe + "'", sqlCon);
+                sqlDa = new SqlDataAdapter(sqlCom);
                 DataTable dt = new DataTable();
-                da.Fill(dt);
+                sqlDa.Fill(dt);
                 if (dt.Rows.Count > 0)
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
@@ -41,5 +43,6 @@ namespace TestRest
             }
             return recipeList;
         }
+        
     }
 }

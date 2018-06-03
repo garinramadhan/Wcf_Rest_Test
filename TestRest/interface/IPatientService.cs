@@ -43,6 +43,6 @@ namespace TestRest
             RequestFormat = WebMessageFormat.Json,
             UriTemplate = "Login/{username}/{password}",
             BodyStyle = WebMessageBodyStyle.Bare)]
-        DataTable doLogin(string username, string password);
+        MPatient doLogin(string username, string password);
     }
 }

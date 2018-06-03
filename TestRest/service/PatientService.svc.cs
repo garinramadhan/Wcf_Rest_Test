@@ -71,20 +71,30 @@ namespace TestRest
             throw new NotImplementedException();
         }
 
-        public DataTable doLogin(string username, string password)
+        public MPatient doLogin(string username, string password)
         {
-            DataTable dt = new DataTable();
-            MPatient patientData = new MPatient();
+            MPatient mpat = new MPatient();
             sqlCon = con.openConnection();
-            sqlCom = new SqlCommand("select * from Patient.Patient where ID_Patient = @username and DateOfBirth = @password", sqlCon);
+            sqlCom = new SqlCommand("select * from Patient.Patient where Id_Patient = @username and DateOfBirth = @password", sqlCon);
             sqlCom.Parameters.AddWithValue("@username", username);
             sqlCom.Parameters.AddWithValue("@password", password);
             sqlDa = new SqlDataAdapter(sqlCom);
+            DataTable dt = new DataTable();
             sqlDa.Fill(dt);
-            sqlCon.Open();
-            int i = sqlCom.ExecuteNonQuery();
+            if (dt.Rows.Count > 0)
+            {
+                mpat.IdPatient = dt.Rows[0]["Id_Patient"].ToString();
+                mpat.PatientName = dt.Rows[0]["Patient_Name"].ToString();
+                mpat.DOB = dt.Rows[0]["DateOfBirth"].ToString();
+                mpat.Address = dt.Rows[0]["Address"].ToString();
+                mpat.Gender = dt.Rows[0]["GenderPatient"].ToString();
+            }
+            else
+            {
+                mpat.IdPatient = "404";
+            }
             sqlCon.Close();
-            return dt;
+            return mpat;
         }
     }
 }
