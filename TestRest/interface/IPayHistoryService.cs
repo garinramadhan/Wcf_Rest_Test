@@ -13,8 +13,8 @@ namespace TestRest
     public interface IPayHistoryService
     {
         [OperationContract]
-        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "Payment/{isPay}")]
-        List<MPay> GetPayment(string isPay);
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "Payment/{idPat}/{isPay}")]
+        List<MPay> GetPayment(string idPat, string isPay);
 
         [OperationContract]
         [WebGet(UriTemplate = "PaymentID/{id}", ResponseFormat = WebMessageFormat.Json)]
