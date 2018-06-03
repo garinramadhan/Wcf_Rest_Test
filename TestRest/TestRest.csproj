@@ -89,6 +89,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="service\RecipeService.svc" />
     <Content Include="service\DoctorService.svc" />
     <Content Include="service\PatientService.svc" />
     <Content Include="service\PayHistoryService.svc" />
@@ -99,7 +100,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="config\Connection.cs" />
+    <Compile Include="interface\IRecipeService.cs" />
     <Compile Include="model\MPay.cs" />
+    <Compile Include="model\MRecipe.cs" />
+    <Compile Include="service\RecipeService.svc.cs">
+      <DependentUpon>RecipeService.svc</DependentUpon>
+    </Compile>
     <Compile Include="service\DoctorService.svc.cs">
       <DependentUpon>DoctorService.svc</DependentUpon>
     </Compile>
