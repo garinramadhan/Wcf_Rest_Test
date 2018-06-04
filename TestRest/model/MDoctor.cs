@@ -18,6 +18,7 @@ namespace TestRest
         String dob = string.Empty;
         String phone = string.Empty;
         String fare = string.Empty;
+        String idSchedule = string.Empty;
 
         [DataMember]
         public string IdDoctor
@@ -66,6 +67,13 @@ namespace TestRest
         {
             get { return fare; }
             set { fare = value; }
+        }
+
+        [DataMember]
+        public string IdSchedule
+        {
+            get { return idSchedule; }
+            set { idSchedule = value; }
         }
     }
 }

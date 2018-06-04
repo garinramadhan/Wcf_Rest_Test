@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.ServiceModel;
 using System.ServiceModel.Web;
+using TestRest.model;
 
 namespace TestRest
 {
@@ -16,6 +17,11 @@ namespace TestRest
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         List<MDoctor> GetDoctorList();
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "Schedule/{idSchedule}")]
+        List<MSchedule> GetSchedule(string idSchedule);
 
         [OperationContract]
         [WebGet(UriTemplate = "Doctor/{id}")]

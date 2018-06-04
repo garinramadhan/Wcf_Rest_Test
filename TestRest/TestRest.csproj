@@ -103,6 +103,7 @@
     <Compile Include="interface\IRecipeService.cs" />
     <Compile Include="model\MPay.cs" />
     <Compile Include="model\MRecipe.cs" />
+    <Compile Include="model\MSchedule.cs" />
     <Compile Include="service\RecipeService.svc.cs">
       <DependentUpon>RecipeService.svc</DependentUpon>
     </Compile>
