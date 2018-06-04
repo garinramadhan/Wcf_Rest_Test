@@ -18,9 +18,50 @@ namespace TestRest
         SqlCommand sqlCom;
         SqlDataAdapter sqlDa;
 
-        public void AddPatient(string patientname, string dob, string address, string gender)
+        public MPatient AddPatient(string patientname, string dob, string address, string gender)
         {
-            throw new NotImplementedException();
+            sqlCon = con.openConnection();
+            using (sqlCon)
+            {
+                sqlCon.Open();
+                string sql = "exec pcdPatient @name,@dob,@address,@gender";
+                sqlCom = new SqlCommand(sql, sqlCon);
+                using (sqlCom)
+                {
+                    sqlCom.Parameters.Add(new SqlParameter("@name", patientname));
+                    sqlCom.Parameters.Add(new SqlParameter("@dob", dob));
+                    sqlCom.Parameters.Add(new SqlParameter("@address", address));
+                    sqlCom.Parameters.Add(new SqlParameter("@gender", gender));
+
+                    sqlCom.ExecuteNonQuery();
+                }
+                sqlCon.Close();
+            }
+
+
+            MPatient mpat = new MPatient();
+            sqlCon = con.openConnection();
+            sqlCom = new SqlCommand("select * from Patient.Patient where Patient_Name = @patientName and DateOfBirth = @dob and Address = @address", sqlCon);
+            sqlCom.Parameters.AddWithValue("@patientName", patientname);
+            sqlCom.Parameters.AddWithValue("@dob", dob);
+            sqlCom.Parameters.AddWithValue("@address", address);
+            sqlDa = new SqlDataAdapter(sqlCom);
+            DataTable dt = new DataTable();
+            sqlDa.Fill(dt);
+            if (dt.Rows.Count > 0)
+            {
+                mpat.IdPatient = dt.Rows[0]["Id_Patient"].ToString();
+                mpat.PatientName = dt.Rows[0]["Patient_Name"].ToString();
+                mpat.DOB = dt.Rows[0]["DateOfBirth"].ToString();
+                mpat.Address = dt.Rows[0]["Address"].ToString();
+                mpat.Gender = dt.Rows[0]["GenderPatient"].ToString();
+            }
+            else
+            {
+                mpat.IdPatient = "404";
+            }
+            sqlCon.Close();
+            return mpat;
         }
 
         public void DeletePatient(string id)

@@ -22,9 +22,12 @@ namespace TestRest
         MPatient GetPatientId(string id);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "AddPatient/{patientname}/{dob}/{address}/{gender}")]
-        void AddPatient(string patientname, string dob, string address, string gender);
-
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            UriTemplate = "AddPatient/{patientname}/{dob}/{address}/{gender}")]
+        MPatient AddPatient(string patientname, string dob, string address, string gender);
+        
         [OperationContract]
         [WebInvoke(UriTemplate = "UpdatePatient/{id}/{name}")]
         void UpdatePatient(string id, string name);
